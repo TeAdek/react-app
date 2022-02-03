@@ -30,7 +30,7 @@ export default class MainContent extends Component {
         address: { city: "Berlin" },
       },
       {
-        id: 1,
+        id: 5,
         firstName: "John",
         phone: null,
         address: { city: "New York" },
@@ -60,22 +60,7 @@ export default class MainContent extends Component {
             </tr>
           </thead>
           <tbody>
-            {this.state.customers.map((cust) => {
-              return (
-                <tr key={cust.id}>
-                  <td>{cust.id}</td>
-                  <td>{cust.firstName}</td>
-                  <td>
-                    {cust.phone ? (
-                      cust.phone
-                    ) : (
-                      <div className="bg-warning p-2 text-center">No Phone</div>
-                    )}
-                  </td>
-                  <td>{cust.address.city}</td>
-                </tr>
-              );
-            })}
+            {this.getCustomerRow()}
           </tbody>
         </table>
       </div>
@@ -85,5 +70,25 @@ export default class MainContent extends Component {
   //Executes when the user clicks on Refresh button
   onRefreshClick = () => {
     this.setState({ customersCount: 7 });
+  };
+
+  getPhoneToRender = (phone) => {
+    if (phone) return phone;
+    else {
+      return <div className="bg-warning p-2 text-center">No Phone</div>;
+    }
+  };
+
+  getCustomerRow = () => {
+    return this.state.customers.map((cust) => {
+      return (
+        <tr key={cust.id}>
+          <td>{cust.id}</td>
+          <td>{cust.firstName}</td>
+          <td>{this.getPhoneToRender(cust.phone)}</td>
+          <td>{cust.address.city}</td>
+        </tr>
+      );
+    });
   };
 }
