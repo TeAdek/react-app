@@ -4,7 +4,7 @@ class NavBar extends Component {
         return(
             <React.Fragment>
                 <h1>Hello</h1>
-                <p>paragraph</p>
+                <p class="highlight">paragraph</p>
             </React.Fragment>
         );
     }
