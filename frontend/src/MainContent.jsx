@@ -44,15 +44,15 @@ export default class MainContent extends Component {
   };
 
   customerNameStyle = (custName) => {
-      if(custName.startsWith("S"))return "green-highlight border-left";
-      else if(custName.startsWith("J"))return "red-highlight border-right";
-      else return {};
+    if (custName.startsWith("S")) return "green-highlight border-left";
+    else if (custName.startsWith("J")) return "red-highlight border-right";
+    else return {};
   };
 
   render() {
     return (
       <div>
-        <h4 className="border-bottom m-1 p-1">
+        <h4 className="m-1 p-1">
           {this.state.appTitle}
           <span className="badge badge-secondary m-2">
             {this.state.customersCount}
@@ -71,9 +71,7 @@ export default class MainContent extends Component {
               <th>City</th>
             </tr>
           </thead>
-          <tbody>
-            {this.getCustomerRow()}
-          </tbody>
+          <tbody>{this.getCustomerRow()}</tbody>
         </table>
       </div>
     );
@@ -92,16 +90,44 @@ export default class MainContent extends Component {
   };
 
   getCustomerRow = () => {
-    return this.state.customers.map((cust) => {
+    return this.state.customers.map((cust, index) => {
       return (
         <tr key={cust.id}>
           <td>{cust.id}</td>
-          <td><img src={cust.photo} alt="Customer"/></td>
-          <td className={this.customerNameStyle(cust.firstName)}>{cust.firstName}</td>
+          <td>
+            <img src={cust.photo} alt="Customer" />
+            <div>
+              <button
+                className="btn btn-sm btn-secondary"
+                onClick={() => {
+                  this.onChangePictureClick(cust, index);
+                }}
+              >
+                Change Picture
+              </button>
+            </div>
+          </td>
+          <td className={this.customerNameStyle(cust.firstName)}>
+            {cust.firstName}
+          </td>
           <td>{this.getPhoneToRender(cust.phone)}</td>
           <td>{cust.address.city}</td>
         </tr>
       );
     });
   };
+
+  //Executes when the user clicks on "Change Picture" button in the grid
+  //Receives the "customer" object and index of the currently clicked customer
+  onChangePictureClick = (cust, index) => {
+      //console.log(cust);
+      //console.log(index);
+
+      //get existing customers
+      var custArr = this.state.customers;
+      custArr[index].photo = "https://picsum.photos/id/104/60";
+
+      //update "customers" array in the state
+      this.setState({customers: custArr});
+  }
 }
