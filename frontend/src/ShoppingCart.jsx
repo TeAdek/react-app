@@ -65,6 +65,13 @@ export default class ShoppingCart extends Component {
     // }
   }
 
+  componentDidCatch(error, info){
+    console.log("componentDidCatch - ShoppingCart");
+    console.log(error, info);
+
+    localStorage.lastError =  `${error}\n${JSON.stringify(info)}`;
+  }
+  
   //Executes when the current instance of current component is being deleted from memory
   componentWillUnmount(){
       console.log("componentWillUnmount - ShoppingCart");
