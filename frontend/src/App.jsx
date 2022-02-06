@@ -7,7 +7,7 @@ export default class App extends Component{
         return(
             <React.Fragment>
             <NavBar/>
-            <ShoppingCart/>
+            <ShoppingCart x="5"/>
             </React.Fragment>
         );
     }
