@@ -23,7 +23,7 @@ export default class Product extends Component {
               </span>
               {/** delete button ends */}
             </div>
-            
+
             <h5 className="pt-2 border-top">
               {this.state.product.productName}
             </h5>
@@ -62,4 +62,9 @@ export default class Product extends Component {
       </div>
     );
   }
+
+  //Executes when the current instance of current component is being deleted from memory
+  componentWillUnmount(){
+    console.log("componentWillUnmount - Product");
+}
 }
