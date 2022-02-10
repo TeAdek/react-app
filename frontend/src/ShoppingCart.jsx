@@ -9,14 +9,7 @@ export default class ShoppingCart extends Component {
 
     //initialization of the state
     this.state = {
-      products: [
-        { id: 1, productName: "iPhone", price: 8900, quantity: 0 },
-        // { id: 2, productName: "Sony Camera", price: 4500, quantity: 0 },
-        // { id: 3, productName: "Samsung QLED TV", price: 7745, quantity: 0 },
-        // { id: 4, productName: "iPad Pro", price: 12400, quantity: 0 },
-        // { id: 5, productName: "Xbox", price: 7780, quantity: 0 },
-        // { id: 6, productName: "Dell Monitor", price: 880, quantity: 0 },
-      ],
+      products: [],
     };
   }
 
@@ -48,10 +41,21 @@ export default class ShoppingCart extends Component {
   //Executes after constructor and render method (includes life cycle of child components, if any) of current component
   componentDidMount() {
     //fetch data from data source:
+    var promise = fetch(" http://localhost:3000/products", { method: "GET" });
+    promise.then((response) => {
+      console.log(response);
+
+      var promise2 = response.json();
+      promise2.then((prods) => {
+        console.log(prods);
+
+        this.setState({ products: prods });
+      });
+    });
     // console.log("componentDidMount - ShoppingCart");
   }
 
-  componentDidUpdate(prevProps, prevState){
+  componentDidUpdate(prevProps, prevState) {
     // console.log(
     //     "componentDidUpdate - ShoppingCart",
     //     prevProps,
@@ -59,21 +63,20 @@ export default class ShoppingCart extends Component {
     //     this.props,
     //     this.state
     // )
-
     // if(prevProps.x != this.props.x){
     //     //make http call
     // }
   }
 
-  componentDidCatch(error, info){
+  componentDidCatch(error, info) {
     // console.log("componentDidCatch - ShoppingCart");
     // console.log(error, info);
 
-    localStorage.lastError =  `${error}\n${JSON.stringify(info)}`;
+    localStorage.lastError = `${error}\n${JSON.stringify(info)}`;
   }
 
   //Executes when the current instance of current component is being deleted from memory
-  componentWillUnmount(){
+  componentWillUnmount() {
     //   console.log("componentWillUnmount - ShoppingCart");
   }
 
