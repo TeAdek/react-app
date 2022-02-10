@@ -3,7 +3,7 @@ import react, { Component } from "react";
 export default class Login extends Component {
   constructor(props) {
     super(props);
-    this.state = { email: "", password: "", message: ""};
+    this.state = { email: "", password: "", message: "" };
   }
 
   render() {
@@ -50,12 +50,17 @@ export default class Login extends Component {
   } //end of render
 
   //Executes when the user clicks on Login
-  onLoginClick = () => {
+  onLoginClick = async () => {
     console.log(this.state);
-    if (
-      this.state.email === "admin@test.com" &&
-      this.state.password === "admin123"
-    ) {
+
+    var response = await fetch(
+      `http://localhost:3000/users?email=${this.state.email}&password=${this.state.password}`,
+      { method: "GET" }
+    );
+
+    var body = await response.json();
+    console.log(body);
+    if(body.length>0){
       //success
       this.setState({
         message: <span className="text-success">Successfully Logged-in</span>,
