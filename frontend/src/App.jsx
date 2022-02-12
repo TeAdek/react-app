@@ -12,6 +12,7 @@ export default class App extends Component {
     return (
       <BrowserRouter>
         <NavBar />
+        <div className="container-fluid">
         <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />
@@ -19,6 +20,7 @@ export default class App extends Component {
         <Route path="/cart" element={<ShoppingCart />} />
         <Route path="*" element={<NoMatchPage />} />
         </Routes>
+        </div>
       </BrowserRouter>
     );
   }
